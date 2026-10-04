@@ -3,7 +3,7 @@ import { Layout, DocHero } from "./Site";
 import "../_group.css";
 import "./LegalDocument.css";
 
-export const LEGAL_EFFECTIVE_DATE = "October 3, 2026";
+export const LEGAL_EFFECTIVE_DATE = "October 4, 2026";
 export const LegalContact = () => <a href="mailto:mystatclips@gmail.com">mystatclips@gmail.com</a>;
 export type LegalSection = { id: string; title: string; content: ReactNode };
 
