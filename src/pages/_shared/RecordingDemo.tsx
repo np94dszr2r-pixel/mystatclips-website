@@ -19,7 +19,9 @@ export function RecordingDemo() {
     <div className="msc-phone">
       <span className="msc-phone-island" aria-hidden="true"/>
       <div className="msc-phone-screen" aria-hidden="true">
-        <div className="msc-camera-art"/>
+        <div className="msc-camera-art" aria-hidden="true">
+          <img src={`${import.meta.env.BASE_URL}images/hero-sports-arena.png`} alt="" fetchPriority="high" decoding="async"/>
+        </div>
         <div className="msc-record-hud">
           <div className="msc-record-head"><strong>Alex Taylor</strong><Pencil size={17}/><span className="msc-record-live"><i/>LIVE</span></div>
           <div className="msc-record-stats">{statHeaders.map(label=><div key={label}><span>{label}</span><b>0</b></div>)}</div>
