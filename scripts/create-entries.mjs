@@ -2,6 +2,9 @@ import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+const productionOrigin = "https://mystatclips.com";
+const socialImage = `${productionOrigin}/images/mystatclips-social-preview-1200x630.jpg`;
+const socialImageAlt = "MyStatClips — Record the Game. Track the Stats. Keep the Highlights.";
 const pages = [
   ["index", "MyStatClips — Record. Track Stats. Capture Highlights.", "Record the game, track your athlete's stats, and keep the highlights. MyStatClips is coming soon for iPhone."],
   ["support", "Support & Contact — MyStatClips", "Contact MyStatClips support and find getting-started resources for recording games and organizing highlights."],
@@ -11,6 +14,7 @@ const pages = [
 ];
 const escape = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 for (const [page, title, description] of pages) {
+  const pageUrl = `${productionOrigin}/${page === "index" ? "" : `${page}.html`}`;
   await writeFile(`${root}${page}.html`, `<!doctype html>
 <html lang="en">
 <head>
@@ -22,9 +26,18 @@ for (const [page, title, description] of pages) {
   <meta property="og:type" content="website">
   <meta property="og:title" content="${escape(title)}">
   <meta property="og:description" content="${escape(description)}">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImage}">
+  <meta property="og:image:secure_url" content="${socialImage}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${escape(socialImageAlt)}">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escape(title)}">
   <meta name="twitter:description" content="${escape(description)}">
+  <meta name="twitter:image" content="${socialImage}">
+  <meta name="twitter:image:alt" content="${escape(socialImageAlt)}">
   <link rel="icon" type="image/x-icon" href="./favicon.ico?v=app-store">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=app-store">
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=app-store">
