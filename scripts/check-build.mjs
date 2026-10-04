@@ -55,7 +55,25 @@ const entryPath = new URL(entry, `https://website.test${base}index.html`).pathna
 const javascript = await readFile(path.join(dist, entryPath), "utf8");
 assert(javascript.includes("https://mystatclips.kit.com/948b6bef5f/index.js"), "Owner-supplied Kit embed URL missing.");
 assert(javascript.includes('data-uid') && javascript.includes("948b6bef5f"), "Kit embed identity missing.");
-assert(documents.get("privacy.html").includes("not a final policy"), "Privacy draft warning missing.");
-assert(documents.get("terms.html").includes("not final terms"), "Terms draft warning missing.");
+for (const page of ["privacy", "terms"]) {
+  const html = documents.get(`${page}.html`);
+  assert(html.includes("Effective date: "), `${page}: effective date missing.`);
+  assert(html.includes("Texas, United States"), `${page}: business location missing.`);
+  assert(html.includes("mystatclips@gmail.com"), `${page}: legal contact missing.`);
+  assert(!/not a final policy|not final terms|approved.text placeholder|awaiting approved/i.test(html), `${page}: legal placeholder remains.`);
+  assert(!html.includes("MyStatClips LLC"), `${page}: nonexistent entity named.`);
+  assert(html.includes(`rel="canonical" href="https://mystatclips.com/${page}"`), `${page}: incorrect canonical.`);
+}
+const privacy = documents.get("privacy.html");
+assert(privacy.includes("does not automatically upload") && privacy.includes("anonymous customer identifier"), "Privacy storage/purchase disclosures missing.");
+assert(privacy.includes("non-personalized") && privacy.includes("App Tracking Transparency") && privacy.includes("Delete Team"), "Privacy advertising/tracking/deletion distinctions missing.");
+const terms = documents.get("terms.html");
+assert(terms.includes("9.99") && terms.includes("79.99") && terms.includes("auto-renewing"), "Subscription terms missing.");
+assert(terms.includes("disabled for everyone") && terms.includes("not Premium-only"), "Current feature scope missing.");
+for (const html of documents.values()) {
+  for (const page of ["privacy", "terms", "support"]) {
+    assert(html.includes(`href="https://mystatclips.com/${page}"`), `Production ${page} footer link missing.`);
+  }
+}
 await stat(path.join(dist, ".nojekyll"));
-console.log(`Verified ${pages.length} static pages, unique metadata, ${localLinks} local links/assets/anchors, demo details, Kit embed wiring, and legal placeholders at base ${base}.`);
+console.log(`Verified ${pages.length} static pages, unique metadata, ${localLinks} local links/assets/anchors, demo details, Kit embed wiring, and legal disclosures at base ${base}.`);

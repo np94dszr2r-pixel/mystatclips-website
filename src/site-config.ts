@@ -20,5 +20,8 @@ export function assetUrl(path: string) {
 }
 
 export function sitePageUrl(page: SitePage) {
+  if (page === "privacy" || page === "terms" || page === "support") {
+    return `https://mystatclips.com/${page}`;
+  }
   return assetUrl(pageFiles[page]);
 }

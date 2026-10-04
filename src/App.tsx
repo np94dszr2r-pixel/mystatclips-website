@@ -12,10 +12,10 @@ export interface AppProps {
 function inferPage(): SitePage {
   if (typeof window === "undefined") return "index";
   const path = window.location.pathname.toLowerCase();
-  if (path.endsWith("/support.html")) return "support";
+  if (/\/support(?:\.html|\/)?$/.test(path)) return "support";
   if (path.endsWith("/how-to.html")) return "how-to";
-  if (path.endsWith("/privacy.html")) return "privacy";
-  if (path.endsWith("/terms.html")) return "terms";
+  if (/\/privacy(?:\.html|\/)?$/.test(path)) return "privacy";
+  if (/\/terms(?:\.html|\/)?$/.test(path)) return "terms";
   return "index";
 }
 

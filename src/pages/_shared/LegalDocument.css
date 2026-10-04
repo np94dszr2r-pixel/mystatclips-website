@@ -1,0 +1,11 @@
+.msc-legal-content .msc-doc-section p + p {
+  margin-top: 12px;
+}
+
+.msc-legal-content .msc-doc-section ul {
+  color: #53687b;
+  font-size: 13px;
+  line-height: 1.7;
+  padding-left: 20px;
+  margin: 12px 0;
+}

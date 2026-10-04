@@ -9,19 +9,20 @@ const pages = [
   ["index", "MyStatClips — Record. Track Stats. Capture Highlights.", "Record the game, track your athlete's stats, and keep the highlights. MyStatClips is coming soon for iPhone."],
   ["support", "Support & Contact — MyStatClips", "Contact MyStatClips support and find getting-started resources for recording games and organizing highlights."],
   ["how-to", "How-To Guide — MyStatClips", "Explore MyStatClips getting-started topics. Detailed instructions, screenshots and video are coming soon."],
-  ["privacy", "Privacy Policy — MyStatClips", "MyStatClips privacy policy structure. Final reviewed policy text is pending; this is not a final policy."],
-  ["terms", "Terms of Use — MyStatClips", "MyStatClips terms of use structure. Final reviewed terms are pending; this page contains clearly marked placeholders."],
+  ["privacy", "Privacy Policy — MyStatClips", "How MyStatClips handles local sports data, permissions, sharing, subscriptions, advertising and deletion."],
+  ["terms", "Terms of Use — MyStatClips", "MyStatClips recording responsibilities, content ownership, Premium subscriptions and service limitations."],
 ];
 const escape = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 for (const [page, title, description] of pages) {
-  const pageUrl = `${productionOrigin}/${page === "index" ? "" : `${page}.html`}`;
+  const legalPage = ["privacy", "terms", "support"].includes(page);
+  const pageUrl = `${productionOrigin}/${page === "index" ? "" : legalPage ? page : `${page}.html`}`;
   await writeFile(`${root}${page}.html`, `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escape(title)}</title>
-  <meta name="description" content="${escape(description)}">
+  <meta name="description" content="${escape(description)}">${legalPage ? `\n  <link rel="canonical" href="${pageUrl}">` : ""}
   <meta name="robots" content="noindex, follow">
   <meta property="og:type" content="website">
   <meta property="og:title" content="${escape(title)}">
