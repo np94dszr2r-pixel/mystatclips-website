@@ -66,6 +66,7 @@ export default defineConfig(async ({ command, isSsrBuild }): Promise<UserConfig>
             const [pathname, query] = (request.url ?? "").split("?");
             const relative = pathname.startsWith(base) ? pathname.slice(base.length) : pathname.replace(/^\/+/, "");
             const routes: Record<string, string> = {
+              "partners": "partners.html", "partners/": "partners.html", "partners/index.html": "partners.html",
               "how-to": "how-to.html", "how-to/": "how-to.html", "how-to/index.html": "how-to.html",
               "how-to/quick-start": "quick-start.html", "how-to/quick-start/": "quick-start.html",
               "how-to/quick-start/index.html": "quick-start.html",
@@ -84,7 +85,7 @@ export default defineConfig(async ({ command, isSsrBuild }): Promise<UserConfig>
       outDir: "dist",
       emptyOutDir: true,
       rollupOptions: isSsrBuild ? undefined : {
-        input: Object.fromEntries(["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms"].map(page =>
+        input: Object.fromEntries(["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms", "partners"].map(page =>
           [page, path.resolve(import.meta.dirname, `${page}.html`)])),
       },
     },

@@ -28,6 +28,7 @@ support.html
 how-to.html
 quick-start.html
 complete-guide.html
+partners.html
 privacy.html
 terms.html
 ```
@@ -49,7 +50,7 @@ Install it through GitHub's own web editor:
 2. Choose **GitHub Actions** as the publishing source.
 3. Open **Actions → Publish approved website to GitHub Pages → Run workflow**.
 4. Leave the base override blank for an ordinary project site.
-5. The workflow checks types, renders all seven pages into static HTML (including the three clean How-To directory routes), validates local links/assets/anchors, and publishes only the generated `dist/` folder.
+5. The workflow checks types, renders all eight pages into static HTML (including the three clean How-To directory routes and `/partners/`), validates local links/assets/anchors, and publishes only the generated `dist/` folder.
 6. GitHub shows the actual public URL in the completed publishing job and Pages settings. Use that URL; no repository or domain name has been assumed here.
 
 For a project repository, the workflow automatically uses `/repository-name/`. For an account-level `username.github.io` repository, it uses `/`. This ensures images and navigation remain within the correct site path. Publishing on a custom domain requires the `/` override instead.

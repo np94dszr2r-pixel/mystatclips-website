@@ -9,7 +9,7 @@ The connected GitHub integration cannot write workflow files. The GitHub reposit
 ## What is included
 
 - Home page with the approved recording demonstration, nine sport icons, and sample player card.
-- Support, How-To landing, Quick Start Guide, Complete User Guide, Privacy Policy, and Terms of Use pages.
+- Support, How-To landing, Quick Start Guide, Complete User Guide, Partners, Privacy Policy, and Terms of Use pages.
 - Unmodified official logo and the approved AI-generated fictional athlete photo.
 - Static-page builds, link/asset/anchor checks, and a manual GitHub Pages workflow.
 - This setup guide and `GITHUB-PAGES.md` for repository and custom-domain setup.
@@ -41,7 +41,9 @@ WEBSITE_BASE_PATH=/your-repository-name/ pnpm run serve
 
 On Windows PowerShell, set `$env:WEBSITE_BASE_PATH="/your-repository-name/"` before the commands.
 
-The completed website is in **`dist/`**. It contains seven rendered HTML pages, plus assets and `.nojekyll`. The How-To pages also have directory entries at **`/how-to/`**, **`/how-to/quick-start/`**, and **`/how-to/complete-guide/`**, so direct links and refreshes work on GitHub Pages without a server-side router. Existing `.html` links still work. All paths honor the configured website base.
+The completed website is in **`dist/`**. It contains eight rendered HTML pages, plus assets and `.nojekyll`. The clean directory entries are **`/how-to/`**, **`/how-to/quick-start/`**, **`/how-to/complete-guide/`**, and **`/partners/`**, so direct links and refreshes work on GitHub Pages without a server-side router. Existing `.html` links still work. All paths honor the configured website base.
+
+The Partners page is a selective partnership conversation page, not an enrollment program. Its primary CTAs open email to MyStatClips; the secondary CTA uses existing Support. Never add public partner prices, discounts, commissions, payouts, percentages, financial terms, or private pricing documents. Preview approval is required before pushing or publishing it.
 
 The short Quick Start and detailed Complete Guide share content in `src/pages/how-to-content.ts`. Instructions were checked against the current app source. The three guide screenshots are current **mobile web-preview captures**, explicitly labelled; they are not native camera or physical-device test evidence. Keep the guide text aligned with the app version users actually receive.
 

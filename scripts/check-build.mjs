@@ -5,7 +5,7 @@ import path from "node:path";
 
 const dist = path.resolve(fileURLToPath(new URL("../dist/", import.meta.url)));
 const base = process.env.WEBSITE_BASE_PATH ?? process.env.BASE_PATH ?? "/";
-const pages = ["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms"];
+const pages = ["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms", "partners"];
 const documents = new Map();
 const titles = new Set();
 let localLinks = 0;
@@ -26,6 +26,7 @@ for (const [file, alias] of [
   ["how-to/index.html", "how-to.html"],
   ["how-to/quick-start/index.html", "quick-start.html"],
   ["how-to/complete-guide/index.html", "complete-guide.html"],
+  ["partners/index.html", "partners.html"],
 ]) {
   const html = await readFile(path.join(dist, file), "utf8");
   assert.equal(html, documents.get(alias), `${file}: clean route differs from HTML alias`);
@@ -52,6 +53,26 @@ for (const [file, html] of documents) {
   }
 }
 const landing = documents.get("how-to.html");
+const partners = documents.get("partners.html");
+assert(partners.includes('rel="canonical" href="https://mystatclips.com/partners"'), "Partners canonical missing.");
+for (const text of ["PARTNER WITH MYSTATCLIPS", "Bring MyStatClips to Your Program.",
+  "A Better Way to Capture the Game.", "Full Games", "Live Stats", "Highlights",
+  "Built by a sports parent for sports parents.", "A Partnership Built Around Real Value.",
+  "Useful All Season.", "Value Without Inventory.", "How Partnership Works",
+  "CONVERSATION", "FIT", "PARTNERSHIP", "LAUNCH", "The Right Partnerships Matter.",
+  "MyStatClips is not an open affiliate program.", "Contact MyStatClips",
+  "Basketball", "Football", "Volleyball", "Soccer", "Baseball", "Softball", "Tennis", "Hockey", "Lacrosse"]) {
+  assert(partners.includes(text), `Partners content missing: ${text}`);
+}
+assert.equal((partners.match(/href="mailto:mystatclips@gmail\.com\?subject=/g) ?? []).length, 2, "Both partnership CTAs must open email.");
+assert(partners.includes(`href="${base}support.html"`), "Partners secondary CTA must reach the existing Support page within the website.");
+assert(!/<form\b|<input\b|<iframe\b/i.test(partners), "Partners must not contain signup/enrollment UI.");
+assert(!/[$€£]\s*\d|\b\d+(?:\.\d+)?\s*%|\b(?:pricing|prices?|discounts?|commissions?|payouts?|financial onboarding)\b/i.test(partners), "Public partner financial information found.");
+assert(!/href="[^"]*\.pdf(?:[?#][^"]*)?"/i.test(partners), "Partners must not expose a pricing PDF.");
+for (const [file, html] of documents) {
+  assert.equal((html.match(new RegExp(`href="${base}partners/"`, "g")) ?? []).length, file === "index.html" ? 4 : 3, "Partners navigation/shortcut/footer links missing.");
+  assert(html.includes(`class="msc-partners-shortcut" href="${base}partners/"`), "Visible Partners shortcut missing.");
+}
 const quick = documents.get("quick-start.html");
 const complete = documents.get("complete-guide.html");
 assert(landing.includes("New to MyStatClips? Start here.") && landing.includes("Learn every feature and troubleshooting option."), "Guide choices or exact introduction copy missing");
@@ -77,6 +98,7 @@ for (const image of ["settings", "record-setup", "clips"]) {
 }
 assert(quick.includes("Current app web preview"), "Screenshots need honest provenance");
 const homepage = documents.get("index.html");
+assert(homepage.includes(`href="${base}partners/">Partner with MyStatClips`), "Homepage partnership CTA must link to Partners.");
 for (const html of documents.values()) {
   assert(!html.includes('class="msc-placeholder"') && !html.includes("screenshot placeholder — real app image to be added"), "Empty screenshot placeholder remains.");
 }

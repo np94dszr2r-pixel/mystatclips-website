@@ -8,13 +8,14 @@ const nav = [
   ["Home", "index", "#top"], ["How It Works", "index", "#how-it-works"],
   ["Features", "index", "#features"], ["Sports", "index", "#sports"],
   ["Create", "index", "#create"], ["Premium", "index", "#premium"],
-  ["How-To", "how-to", ""], ["About", "index", "#about"], ["Support", "support", ""],
+  ["How-To", "how-to", ""], ["About", "index", "#about"], ["Partners", "partners", ""], ["Support", "support", ""],
 ] as const;
 
 export function Header() {
   const [open, setOpen] = useState(false);
   return <header className="msc-header"><div className="msc-shell msc-navrow">
     <a href={`${sitePageUrl("index")}#top`} className="msc-brand" aria-label="MyStatClips home"><img src={logo} alt="MyStatClips — Record. Track Stats. Capture Highlights." /></a>
+    <a className="msc-partners-shortcut" href={sitePageUrl("partners")}>Partners</a>
     <button className="msc-mobile-toggle" type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X size={19}/> : <Menu size={19}/>}</button>
     <nav className={`msc-nav${open ? " is-open" : ""}`} aria-label="Main navigation">
       {nav.map(([label, page, hash]) => <a key={label} onClick={() => setOpen(false)} href={`${sitePageUrl(page as SitePage)}${hash}`}>{label}</a>)}
@@ -27,7 +28,7 @@ export function Footer() {
   return <footer className="msc-footer"><div className="msc-shell">
     <div className="msc-footer-top">
       <div><img className="msc-footer-logo" src={logo} alt="MyStatClips — Record. Track Stats. Capture Highlights."/><p>Track Stats. Capture Highlights. Build Your Story.</p><a href="mailto:mystatclips@gmail.com" style={{color:"#c4d2df",fontSize:12,textDecoration:"none"}}><Mail size={14} style={{verticalAlign:"middle",marginRight:7}}/>mystatclips@gmail.com</a></div>
-      <div className="msc-footer-links" aria-label="Explore"><a href={`${sitePageUrl("index")}#top`}>Home</a><a href={`${sitePageUrl("index")}#how-it-works`}>How It Works</a><a href={`${sitePageUrl("index")}#features`}>Features</a><a href={`${sitePageUrl("index")}#sports`}>Sports</a><a href={`${sitePageUrl("index")}#create`}>Create</a><a href={sitePageUrl("how-to")}>How-To</a><a href={`${sitePageUrl("index")}#about`}>About</a><a href={sitePageUrl("support")}>Support</a></div>
+      <div className="msc-footer-links" aria-label="Explore"><a href={`${sitePageUrl("index")}#top`}>Home</a><a href={`${sitePageUrl("index")}#how-it-works`}>How It Works</a><a href={`${sitePageUrl("index")}#features`}>Features</a><a href={`${sitePageUrl("index")}#sports`}>Sports</a><a href={`${sitePageUrl("index")}#create`}>Create</a><a href={sitePageUrl("how-to")}>How-To</a><a href={`${sitePageUrl("index")}#about`}>About</a><a href={sitePageUrl("partners")}>Partners</a><a href={sitePageUrl("support")}>Support</a></div>
       <div className="msc-footer-links" aria-label="Information"><a href={sitePageUrl("privacy")}>Privacy Policy</a><a href={sitePageUrl("terms")}>Terms of Use</a><a href="https://www.instagram.com/mystatclips/" target="_blank" rel="noopener noreferrer" style={{color:"#aebfd0",fontSize:11}}>Instagram · @MyStatClips</a><span style={{color:"#aebfd0",fontSize:11}}>App Store · Coming soon</span></div>
     </div>
     <div className="msc-footer-bottom"><span>© 2026 MyStatClips. All rights reserved.</span><span>Made for the moments worth keeping.</span></div>

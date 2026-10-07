@@ -27,7 +27,13 @@
 .msc-navrow { min-height: 82px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .msc-brand { display:inline-flex; align-items:center; flex:0 0 auto; }
 .msc-brand img { display:block; object-fit:contain; width:205px; height:auto; }
-.msc-nav { display:flex; align-items:center; gap:21px; }
+.msc-partners-shortcut { display:none; }
+@media(max-width:1200px) {
+ .msc-navrow { gap:12px; }
+ .msc-partners-shortcut { display:inline-flex; align-items:center; min-height:44px; margin-left:auto; flex:none; font-size:12px; font-weight:700; color:var(--msc-blue)!important; text-decoration:none; }
+ .msc-mobile-toggle { flex:0 0 44px; }
+}
+.msc-nav { display:flex; align-items:center; gap:17px; white-space:nowrap; }
 .msc-nav a { text-decoration:none; color:#31465e; font-size:12px; font-weight:700; transition:color .2s; }
 .msc-nav a:hover { color:var(--msc-blue); }
 .msc-mobile-toggle { display:none; border:1px solid var(--msc-line); color:var(--msc-ink); background:var(--msc-card); border-radius:12px; height:44px; width:44px; align-items:center; justify-content:center; cursor:pointer; }
@@ -226,6 +232,14 @@
 .msc-howto-item p { font-size:12px; }
 .msc-page-cta { margin-top:35px; }
 .msc-page-cta .msc-btn { margin-right:8px; margin-top:8px; }
+/* Use the existing menu earlier so the added Partners link never crowds the header. */
+@media(max-width:1200px) and (min-width:761px) {
+ .msc-mobile-toggle { display:flex; }
+ .msc-nav { display:none; position:absolute; left:30px; right:30px; top:76px; border:1px solid #d4e1e8; border-radius:13px; background:#f8fbfc; box-shadow:0 18px 36px #10233e1c; padding:16px; align-items:stretch; flex-direction:column; gap:0; max-height:calc(100dvh - 100px); overflow-y:auto; }
+ .msc-nav.is-open { display:flex; }
+ .msc-nav a { padding:12px 9px; border-bottom:1px solid #e3edf1; font-size:13px; }
+ .msc-nav .msc-btn { margin-top:11px; }
+}
 @media(max-width:1020px) {
  .msc-nav { gap:12px; }.msc-nav a { font-size:11px; }.msc-brand img { width:176px; }
  .msc-hero-grid { gap:20px; }.msc-feature-layout { grid-template-columns:1fr; gap:20px; }.msc-sport-grid { grid-template-columns:repeat(5,1fr); }.msc-sport:nth-child(5){border-right:0}.msc-sport:nth-child(n+6){border-top:1px solid #29405b}

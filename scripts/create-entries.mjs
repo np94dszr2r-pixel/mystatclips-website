@@ -9,6 +9,7 @@ const socialImageAlt = "MyStatClips — Record the Game. Track the Stats. Keep t
 const pages = [
   ["index", "MyStatClips — Record. Track Stats. Capture Highlights.", "Record the game, track your athlete's stats, and keep the highlights. MyStatClips is coming soon for iPhone."],
   ["support", "Support & Contact — MyStatClips", "Contact MyStatClips support and find getting-started resources for recording games and organizing highlights."],
+  ["partners", "Partners — MyStatClips", "Bring MyStatClips to your sports program. Start a conversation about a selective partnership built around value for your organization and its families."],
   ["how-to", "How-To: Quick Start & Complete Guide — MyStatClips", "New to MyStatClips? Choose the short Quick Start Guide or the Complete User Guide to learn features and troubleshooting."],
   ["quick-start", "Quick Start Guide — MyStatClips", "Start recording with MyStatClips in ten short steps: set up your athlete, tap stats, save highlights and review your clips."],
   ["complete-guide", "Complete User Guide — MyStatClips", "Learn MyStatClips recording, sports, basketball teams, clips, trimming, Recovery, Stat Cards, Highlight Reels, Premium and troubleshooting."],
@@ -18,7 +19,7 @@ const pages = [
 const escape = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 for (const [page, title, description] of pages) {
   const legalPage = ["privacy", "terms", "support"].includes(page);
-  const guidePath = { "how-to": "how-to", "quick-start": "how-to/quick-start", "complete-guide": "how-to/complete-guide" }[page];
+  const guidePath = { "how-to": "how-to", "quick-start": "how-to/quick-start", "complete-guide": "how-to/complete-guide", partners: "partners" }[page];
   const pageUrl = `${productionOrigin}/${page === "index" ? "" : guidePath ?? (legalPage ? page : `${page}.html`)}`;
   await writeFile(`${root}${page}.html`, `<!doctype html>
 <html lang="en">

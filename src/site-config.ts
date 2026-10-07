@@ -1,9 +1,10 @@
 export const SITE_BASE = import.meta.env?.BASE_URL ?? process.env.WEBSITE_BASE_PATH ?? "/";
 
-export type SitePage = "index" | "support" | "how-to" | "quick-start" | "complete-guide" | "privacy" | "terms";
+export type SitePage = "index" | "support" | "how-to" | "quick-start" | "complete-guide" | "privacy" | "terms" | "partners";
 
 const pageFiles: Record<SitePage, string> = {
   index: "index.html",
+  partners: "partners/",
   support: "support.html",
   "how-to": "how-to/",
   "quick-start": "how-to/quick-start/",

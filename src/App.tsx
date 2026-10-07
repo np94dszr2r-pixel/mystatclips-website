@@ -5,6 +5,7 @@ import QuickStartGuide from "./pages/QuickStartGuide";
 import CompleteUserGuide from "./pages/CompleteUserGuide";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Partners from "./pages/Partners";
 import type { SitePage } from "./site-config";
 
 export interface AppProps {
@@ -15,6 +16,7 @@ function inferPage(): SitePage {
   if (typeof window === "undefined") return "index";
   const path = window.location.pathname.toLowerCase().replace(/\/index\.html$/, "/");
   if (/\/support(?:\.html|\/)?$/.test(path)) return "support";
+  if (/\/partners(?:\.html|\/)?$/.test(path)) return "partners";
   if (/\/(?:how-to\/)?quick-start(?:\.html|\/)?$/.test(path)) return "quick-start";
   if (/\/(?:how-to\/)?complete-guide(?:\.html|\/)?$/.test(path)) return "complete-guide";
   if (/\/how-to(?:\.html|\/)?$/.test(path)) return "how-to";
@@ -25,6 +27,8 @@ function inferPage(): SitePage {
 
 function App({ page = inferPage() }: AppProps) {
   switch (page) {
+    case "partners":
+      return <Partners />;
     case "support":
       return <Support />;
     case "how-to":
