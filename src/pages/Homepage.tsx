@@ -1,6 +1,6 @@
 import "./_group.css";
 import { ArrowDown, ArrowRight, Aperture, Play, Camera, ChartNoAxesColumnIncreasing, UsersRound, Clapperboard, SlidersHorizontal, Scissors, FolderHeart, LayoutTemplate } from "lucide-react";
-import { Layout, ScreenshotPlaceholder } from "./_shared/Site";
+import { Layout } from "./_shared/Site";
 import { sitePageUrl } from "../site-config";
 import { BasketballIcon, VolleyballIcon, FootballIcon, SoccerIcon, TennisIcon, SoftballIcon, BaseballIcon, HockeyIcon, LacrosseIcon } from "./_shared/SportIcons";
 import { RecordingDemo } from "./_shared/RecordingDemo";
@@ -65,7 +65,6 @@ export function Homepage() {
       <section className="msc-section msc-steps" id="how-it-works"><div className="msc-shell">
         <div className="msc-section-heading"><span className="msc-eyebrow">A simpler game-day flow</span><h2 className="msc-display">Three steps.<br/>One game, all together.</h2><p>Follow the action from the stands. MyStatClips keeps the full game, stats, and marked moments organized for after.</p></div>
         <div className="msc-step-grid">{howSteps.map(({num,title,copy,Icon})=><article className="msc-step" key={num}><span className="msc-step-index">{num}</span><Icon className="msc-step-icon" size={23}/><h3 className="msc-display">{title}</h3><p>{copy}</p></article>)}</div>
-        <div className="msc-feature-list" style={{marginTop:16}}><ScreenshotPlaceholder label="Record"/><ScreenshotPlaceholder label="Game summary"/><ScreenshotPlaceholder label="Highlight clips"/></div>
       </div></section>
       <section className="msc-section" id="features"><div className="msc-shell msc-feature-layout">
         <div className="msc-section-heading"><span className="msc-eyebrow">Everything around the game</span><h2 className="msc-display">Made for your sideline routine.</h2><p>Useful tools, without turning your weekend into a complicated workflow.</p></div>

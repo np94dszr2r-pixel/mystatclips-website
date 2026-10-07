@@ -46,6 +46,37 @@ export default defineConfig(async ({ command, isSsrBuild }): Promise<UserConfig>
     root: import.meta.dirname,
     plugins: [
       react(),
+      {
+        name: "how-to-static-dev-routes",
+        transformIndexHtml: {
+          order: "pre",
+          handler(html, context) {
+            if (!context.server) return html;
+            // Vite's dev HTML transform adds base itself. Nested clean routes must
+            // not resolve the relative entry script under /how-to/.../src/.
+            html = html.replace('src="./src/main.tsx"', 'src="/src/main.tsx"');
+            for (const file of ["favicon.ico", "favicon-32x32.png", "apple-touch-icon.png"]) {
+              html = html.replaceAll(`href="${base}${file}`, `href="/${file}`);
+            }
+            return html;
+          },
+        },
+        configureServer(server) {
+          server.middlewares.use((request, _response, next) => {
+            const [pathname, query] = (request.url ?? "").split("?");
+            const relative = pathname.startsWith(base) ? pathname.slice(base.length) : pathname.replace(/^\/+/, "");
+            const routes: Record<string, string> = {
+              "how-to": "how-to.html", "how-to/": "how-to.html", "how-to/index.html": "how-to.html",
+              "how-to/quick-start": "quick-start.html", "how-to/quick-start/": "quick-start.html",
+              "how-to/quick-start/index.html": "quick-start.html",
+              "how-to/complete-guide": "complete-guide.html", "how-to/complete-guide/": "complete-guide.html",
+              "how-to/complete-guide/index.html": "complete-guide.html",
+            };
+            if (routes[relative]) request.url = `${base}${routes[relative]}${query ? `?${query}` : ""}`;
+            next();
+          });
+        },
+      },
       ...devTools,
     ],
     resolve: { alias: { "@": path.resolve(import.meta.dirname, "src") }, dedupe: ["react", "react-dom"] },
@@ -53,7 +84,7 @@ export default defineConfig(async ({ command, isSsrBuild }): Promise<UserConfig>
       outDir: "dist",
       emptyOutDir: true,
       rollupOptions: isSsrBuild ? undefined : {
-        input: Object.fromEntries(["index", "support", "how-to", "privacy", "terms"].map(page =>
+        input: Object.fromEntries(["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms"].map(page =>
           [page, path.resolve(import.meta.dirname, `${page}.html`)])),
       },
     },

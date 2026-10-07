@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowRight, Menu, X, CircleHelp, Mail } from "lucide-react";
+import { ArrowRight, Menu, X, Mail } from "lucide-react";
 import { assetUrl, sitePageUrl, type SitePage } from "../../site-config";
 
 const logo = assetUrl("images/official-lockup.png");
@@ -41,10 +41,6 @@ export function Layout({children}: {children: ReactNode}) {
     requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
   }, []);
   return <div className="msc-site"><Header/>{children}<Footer/></div>;
-}
-
-export function ScreenshotPlaceholder({label}: {label: string}) {
-  return <div className="msc-placeholder" role="img" aria-label={`${label} screenshot placeholder — real app image to be added`}><CircleHelp size={16}/><span>Real app screenshot · {label}</span></div>;
 }
 
 export function DocHero({eyebrow, title, intro}: {eyebrow: string; title: string; intro: string}) {

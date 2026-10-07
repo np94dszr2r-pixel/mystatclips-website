@@ -1,15 +1,22 @@
-import { readFile, writeFile, rm } from "node:fs/promises";
+import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import App from "../.prerender/App.js";
 
-for (const page of ["index", "support", "how-to", "privacy", "terms"]) {
+for (const page of ["index", "support", "how-to", "quick-start", "complete-guide", "privacy", "terms"]) {
   const target = new URL(`../dist/${page}.html`, import.meta.url);
   const template = await readFile(target, "utf8");
   if (!template.includes('<div id="root"></div>')) throw new Error(`Missing static render slot for ${page}.`);
   const markup = renderToString(createElement(App, { page }));
-  await writeFile(target, template.replace('<div id="root"></div>', `<div id="root">${markup}</div>`));
+  const html = template.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
+  await writeFile(target, html);
+  const directory = { "how-to": "how-to", "quick-start": "how-to/quick-start", "complete-guide": "how-to/complete-guide" }[page];
+  if (directory) {
+    const destination = new URL(`../dist/${directory}/`, import.meta.url);
+    await mkdir(destination, { recursive: true });
+    await writeFile(new URL("index.html", destination), html);
+  }
 }
 await writeFile(new URL("../dist/.nojekyll", import.meta.url), "");
 await rm(new URL("../.prerender", import.meta.url), { recursive: true, force: true });
-console.log("Five complete static HTML pages generated; no server or SPA fallback required.");
+console.log("Seven static pages plus three clean How-To directory routes generated; no server or SPA fallback required.");

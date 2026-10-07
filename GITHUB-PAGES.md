@@ -26,6 +26,8 @@ public/
 index.html
 support.html
 how-to.html
+quick-start.html
+complete-guide.html
 privacy.html
 terms.html
 ```
@@ -47,7 +49,7 @@ Install it through GitHub's own web editor:
 2. Choose **GitHub Actions** as the publishing source.
 3. Open **Actions → Publish approved website to GitHub Pages → Run workflow**.
 4. Leave the base override blank for an ordinary project site.
-5. The workflow checks types, renders all five pages into static HTML, validates local links/assets/anchors, and publishes only the generated `dist/` folder.
+5. The workflow checks types, renders all seven pages into static HTML (including the three clean How-To directory routes), validates local links/assets/anchors, and publishes only the generated `dist/` folder.
 6. GitHub shows the actual public URL in the completed publishing job and Pages settings. Use that URL; no repository or domain name has been assumed here.
 
 For a project repository, the workflow automatically uses `/repository-name/`. For an account-level `username.github.io` repository, it uses `/`. This ensures images and navigation remain within the correct site path. Publishing on a custom domain requires the `/` override instead.
@@ -59,7 +61,7 @@ For a project repository, the workflow automatically uses `/repository-name/`. F
 3. Follow the current GitHub DNS guidance for your exact hostname and registrar. A subdomain typically uses a CNAME; an apex/root domain uses the records GitHub specifies. Use the current values from GitHub rather than copying old IP addresses.
 4. Re-run the publishing workflow with the base override set to **`/`**. Do not retain `/repository-name/` when the site is served at the root of a custom domain.
 5. Once GitHub finishes domain verification and certificate setup, enable **Enforce HTTPS**.
-6. Check the home page, all four supporting pages, images, and cross-page section links on the actual published domain.
+6. Check the home page, supporting pages, `/how-to`, both guide links, images, and cross-page section links on the actual published domain.
 
 No `CNAME` file, DNS records, or custom domain was created as part of website preparation. The hostname is configured through your repository's Pages settings when you choose to proceed.
 
